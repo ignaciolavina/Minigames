@@ -1,3 +1,6 @@
+
+import java.io.IOException;
+
 int NUMBER_CELLS = 10;
 int CELL_WIDTH; 
 int NUMBER_MINES = 10;
@@ -108,5 +111,34 @@ int NUMBER_MINES = 10;
 void mousePressed(){
   println(mouseX, mouseY);
   println(mouseX/(CELL_WIDTH));
-  cells[mouseX/(CELL_WIDTH)][mouseY/(CELL_WIDTH)].visible = true;  
+  int x = mouseX/(CELL_WIDTH);
+  int y = mouseY/(CELL_WIDTH);
+  Cell cell = cells[x][y];
+  activate(cell, x, y);
+  //cells[mouseX/(CELL_WIDTH)][mouseY/(CELL_WIDTH)].visible = true; 
+
+}
+
+boolean activate(Cell cell, int x, int y){
+  if (cell.visible)
+    return false;
+  else{
+    print ("cell not visible");
+    if (cell.value == 0){
+      
+    cell.visible = true;
+      for ( int i = x - 1; i <= x + 1; i++){
+        for (int j = y -1; j <+ y +1; j++){          
+          try {
+            println("activada" + x,y + " ahora quiero " + (x-1), y);
+            activate(cells[i][j], i, j);   
+          } catch (Exception e) {
+            //print("Out of limits");
+          } 
+        }
+      }
+
+    }
+    return true;
+  }
 }
