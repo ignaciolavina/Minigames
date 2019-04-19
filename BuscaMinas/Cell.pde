@@ -2,6 +2,7 @@ class Cell{
  int value = 0;
  int x;
  int y;
+ PImage img;
  boolean visible = false;
  boolean mine = false;
   public Cell(int x, int y){
@@ -30,5 +31,11 @@ public void draw(){
     }
   }
 }
+
+  public void explode(){
+    img = loadImage("./img/explosion.PNG");
+    image (img, x, y, CELL_WIDTH, CELL_WIDTH);
+    this.draw();
+  }
 
 }

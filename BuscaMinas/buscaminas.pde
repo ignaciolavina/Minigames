@@ -109,11 +109,7 @@ void draw(){
   }
   
 }
-/*
-int NUMBER_CELLS = 10;
-int CELL_WIDTH; 
-int NUMBER_MINES = 10;
-*/
+
 
 void mousePressed(){
   println(mouseX, mouseY);
@@ -128,6 +124,7 @@ void mousePressed(){
 boolean activate(Cell cell, int x, int y){
   if (cell.mine){
     cell.visible = true;
+    cell.explode();
     gameOver();
   }
   if (cell.visible)
