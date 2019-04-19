@@ -4,6 +4,8 @@ import java.io.IOException;
 int NUMBER_CELLS = 10;
 int CELL_WIDTH; 
 int NUMBER_MINES = 10;
+int NUMBER_CELLS_UNEXPLORED = NUMBER_CELLS*NUMBER_CELLS;
+boolean gameState = true;
 
 Cell cells[][] = new Cell [NUMBER_CELLS][NUMBER_CELLS];
 
@@ -78,28 +80,33 @@ void setMines(){
 
 
 void draw(){
-  background(150);
-  fill(255);
-  stroke(0);
-  
-  // Draw lines
-  for (int i = 0; i<= NUMBER_CELLS; i++){
-     line(i * width/NUMBER_CELLS, 0, i * width/NUMBER_CELLS, height);     
-  }   
-  for (int i = 0; i<= NUMBER_CELLS; i++){
-     line(0, i * width/NUMBER_CELLS, width, i * width/NUMBER_CELLS);
-   
+  if (gameState){
+      background(150);
+      fill(255);
+      stroke(0);
+      
+      // Draw lines
+      for (int i = 0; i<= NUMBER_CELLS; i++){
+         line(i * width/NUMBER_CELLS, 0, i * width/NUMBER_CELLS, height);     
+      }   
+      for (int i = 0; i<= NUMBER_CELLS; i++){
+         line(0, i * width/NUMBER_CELLS, width, i * width/NUMBER_CELLS);
+       
+      }
+    
+      
+      // Draw cells
+        for (int i = 0; i < NUMBER_CELLS; i++){
+        for (int j = 0; j< NUMBER_CELLS; j++){
+          cells [i][j].draw();
+        }
+      }
+       
+      stroke(255);
+      }
+  else{
+    
   }
-
-  
-  // Draw cells
-    for (int i = 0; i < NUMBER_CELLS; i++){
-    for (int j = 0; j< NUMBER_CELLS; j++){
-      cells [i][j].draw();
-    }
-  }
-   
-  stroke(255);
   
 }
 /*
@@ -116,29 +123,39 @@ void mousePressed(){
   Cell cell = cells[x][y];
   activate(cell, x, y);
   //cells[mouseX/(CELL_WIDTH)][mouseY/(CELL_WIDTH)].visible = true; 
-
 }
 
 boolean activate(Cell cell, int x, int y){
+  if (cell.mine){
+    cell.visible = true;
+    gameOver();
+  }
   if (cell.visible)
     return false;
   else{
-    print ("cell not visible");
-    if (cell.value == 0){
-      
+    //println ("cell not visible");
     cell.visible = true;
+    NUMBER_CELLS_UNEXPLORED --; // TO Kknow when to win
+    if (cell.value == 0){      
+    // Recursion, explore all cells around
       for ( int i = x - 1; i <= x + 1; i++){
-        for (int j = y -1; j <+ y +1; j++){          
+        for (int j = y -1; j <= y +1; j++){          
           try {
-            println("activada" + x,y + " ahora quiero " + (x-1), y);
             activate(cells[i][j], i, j);   
           } catch (Exception e) {
             //print("Out of limits");
           } 
         }
       }
-
     }
     return true;
   }
+}
+
+public void gameOver(){
+  textAlign(CENTER);
+  textSize(50);
+  fill(255);
+  text("GAME OVER :(", width/2, height/2);
+  gameState = false;  
 }
