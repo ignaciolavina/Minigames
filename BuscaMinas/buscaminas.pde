@@ -95,9 +95,18 @@ void draw(){
       cells [i][j].draw();
     }
   }
-  
-  
+   
   stroke(255);
   
-  
+}
+/*
+int NUMBER_CELLS = 10;
+int CELL_WIDTH; 
+int NUMBER_MINES = 10;
+*/
+
+void mousePressed(){
+  println(mouseX, mouseY);
+  println(mouseX/(CELL_WIDTH));
+  cells[mouseX/(CELL_WIDTH)][mouseY/(CELL_WIDTH)].visible = true;  
 }
