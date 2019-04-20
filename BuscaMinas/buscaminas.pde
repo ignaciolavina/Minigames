@@ -126,7 +126,7 @@ void mousePressed(){
 
 boolean activate(Cell cell, int x, int y){
   if (cell.mine){
-    cell.visible = true;
+    cell.show();
     cell.explode();
     gameOver();
   }
@@ -134,7 +134,7 @@ boolean activate(Cell cell, int x, int y){
     return false;
   else{
     //println ("cell not visible");
-    cell.visible = true;
+    cell.show();
     NUMBER_CELLS_UNEXPLORED --; // TO Kknow when to win
     if (cell.value == 0){      
     // Recursion, explore all cells around
