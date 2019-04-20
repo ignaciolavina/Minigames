@@ -10,7 +10,10 @@ class Cell{
     this.x = x;
     this.y = y;
     
-    //print("x: " + x + " y:" + y);
+  }
+  
+  public void mark_flag(){
+    img = loadImage("./img/flag.PNG");
   }
   
   public void calculate_value(){
@@ -28,6 +31,10 @@ public void draw(){
       //print("drawing");
       textAlign(CENTER);
       text(""+this.value, x+ CELL_WIDTH/2, y + CELL_WIDTH/2);
+    }
+  }else{
+    if (img != null){
+      
     }
   }
 }

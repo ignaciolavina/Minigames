@@ -111,14 +111,17 @@ void draw(){
 }
 
 
-void mousePressed(){
-  println(mouseX, mouseY);
-  println(mouseX/(CELL_WIDTH));
+void mousePressed(){    
   int x = mouseX/(CELL_WIDTH);
   int y = mouseY/(CELL_WIDTH);
   Cell cell = cells[x][y];
-  activate(cell, x, y);
-  //cells[mouseX/(CELL_WIDTH)][mouseY/(CELL_WIDTH)].visible = true; 
+  
+  if (mouseButton == LEFT){
+    activate(cell, x, y);
+  }
+  else{
+    cell.mark_flag();
+  }
 }
 
 boolean activate(Cell cell, int x, int y){
